@@ -1,19 +1,30 @@
 import { useRouter } from "next/router"
-import {getAllEvents} from "../../dummy-data"
+import {getAllEvents} from "../../helpers/apiUtils"
 import EventList from "../../components/events/EventList"
 import EventSearch from "../../components/events/EventSearch"
-export default function EventsPage(){
+import Head from "../../components/content/Head"
+export default function EventsPage(props){
     const router = useRouter()
-    const featuredEvents = getAllEvents()
+    const {allEvents} = props
     const findEventHandler = (year, month) => {
-        const fullPath = `/events/${year}/${month}`
+        const fullPath = `/events/search/${year}/${month}`
 
         router.push(fullPath)
     }
     return (
         <>
+        <Head title="All Nextjs Events"/>
             <EventSearch onSearch={findEventHandler}/>
-            <EventList items={featuredEvents} />
+            <EventList items={allEvents} />
         </>
     )
+}
+
+export async function getStaticProps() {
+    const allEvents = await getAllEvents()
+    return {
+        props: {
+            allEvents 
+        }
+    }
 }

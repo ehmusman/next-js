@@ -5,6 +5,7 @@ import Button from '../ui/Button'
 import DateIcon from "../icons/DateIcon"
 import ArrowRightIcon from "../icons/ArrowRightIcon"
 import AddressIcon from "../icons/AddressIcon"
+import Image from 'next/image'
 const EventItem = (props) => {
   const {title, image, date, location, id} = props
   const humanReadableDateString = new Date(date).toLocaleDateString('en-US', {
@@ -17,7 +18,8 @@ const EventItem = (props) => {
   const exploreLink = `/events/${id}`
   return (
     <li className={style.item}>
-      <img src={"/" + image} alt='s' />
+        <Image src={`/${image}`} alt={"imageAlt"} height={300} width={300}/>
+
       <div className={style.content}>
         <div className={style.summary}>
           <h2>{title}</h2>
